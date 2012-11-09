@@ -27,6 +27,31 @@ function rad_custom_post_type(){
 	//turn on admin panel features
 	$supports = array( 'thumbnail', 'excerpt', 'custom-fields', 'comments', 'revisions', 'page-attributes', 'author' );
 	add_post_type_support( 'product', $supports );
+	
+	//add Brand taxo to the products (taxonomy slug, post type slug, args)
+	register_taxonomy( 'brand', 'product', array(
+		'labels' => array(
+			'name' => 'Brands',
+			'singular_name' => 'Brand',
+			'add_new_item' => 'Add New Brand',
+			'search_items' => 'Search Brands'
+		),
+		'hierarchical' => true, //parent/child, like categories
+		'rewrite' => array( 'slug' => 'brands' )
+	) );
+	
+	//add features taxo to the products (taxonomy slug, post type slug, args)
+	register_taxonomy( 'feature', 'product', array(
+		'labels' => array(
+			'name' => 'Features',
+			'singular_name' => 'Feature',
+			'add_new_item' => 'Add New Feature',
+			'search_items' => 'Search Features'
+		),
+		'hierarchical' => false, //flat, like tags
+		'rewrite' => array( 'slug' => 'features' )
+	) );
+	
 }
 add_action( 'init', 'rad_custom_post_type' );
 
