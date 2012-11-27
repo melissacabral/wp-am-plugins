@@ -12,7 +12,6 @@ Author URI: http://melissacabral.com
 /* Register a Custom Post Type (Slide) */
 add_action('init', 'slide_init');
 function slide_init() {
-	
 	$args = array(
 		'labels' => array(
 			'name' => 'Slides', 
@@ -43,7 +42,6 @@ function slide_init() {
 	register_post_type('slide', $args);
 }
 
-
 /* Put  little help box at the top of the editor */
 add_action('contextual_help', 'slide_help_text', 10, 3);
 function slide_help_text($contextual_help, $screen_id, $screen) {
@@ -62,9 +60,6 @@ function slide_help_text($contextual_help, $screen_id, $screen) {
 }
 
 
-
-
-
 //This prevents 404 errors when viewing our custom post archives
 //always do this whenever introducing a new post type or taxonomy
 function rad_slider_rewrite_flush(){
@@ -74,9 +69,66 @@ function rad_slider_rewrite_flush(){
 //run this when the plugin activates
 register_activation_hook(__FILE__, 'rad_slider_rewrite_flush');
 
-
 /* Add the image size for the slider */
 function rad_slider_image(){
 	add_image_size( 'rad-slider', 960, 330, true );	
 }
 add_action('init', 'rad_slider_image');
+
+//Front-end display. Call this function in your theme wherever you want your slider
+function rad_slider(){ 
+	//set up custom loop
+	$slide_query = new WP_Query( array(
+		'post_type' => 'slide',
+		'posts_per_page' => 5
+	) );
+	if( $slide_query->have_posts() ):
+?>
+	<div id="rad-slider">
+    	<ul class="slides">
+        <?php while( $slide_query->have_posts() ):
+			$slide_query->the_post();  ?>
+        	<li>
+            	<?php the_post_thumbnail('rad-slider'); ?>
+                <div class="slide-details">
+                	<h2><?php the_title(); ?></h2>
+                    <p><?php the_content(); ?></p>
+                </div>
+            </li>
+        <?php endwhile; ?>
+        </ul>
+        <a href="javascript:;" id="previous-slide">Previous</a>
+        <a href="javascript:;" id="next-slide">Next</a>
+        
+    </div>	
+<?php
+	endif; // have_posts. end of custom loop.
+	wp_reset_postdata(); //resume normal 'page' behavior
+ }
+ 
+//Load up all JS and CSS
+function rad_slider_scripts(){
+	//get the WP version of jQuery
+	wp_enqueue_script('jquery');
+	
+	//tell WP about the cycle plugin
+	$cycle_path = plugins_url('js/jquery.cycle.all.js', __FILE__);
+	wp_register_script('jq-cycle', $cycle_path);
+	wp_enqueue_script('jq-cycle');
+	
+	//tell WP about our custom.js file
+	$custom_path = plugins_url('js/custom.js', __FILE__);
+	wp_register_script('cycle-custom', $custom_path);
+	wp_enqueue_script('cycle-custom');	
+	
+	//tell WP about the stylesheet
+	$style_path = plugins_url('css/style.css', __FILE__);
+	wp_register_style('cycle-style', $style_path);
+	wp_enqueue_style('cycle-style');
+}
+add_action('wp_enqueue_scripts', 'rad_slider_scripts');
+
+
+
+
+
