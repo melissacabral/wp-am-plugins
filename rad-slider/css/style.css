@@ -1,50 +1,108 @@
 @charset "utf-8";
 /* CSS Document */
-#rad-slider{
-	width:960px;
-	position:relative;
+#rad-slider {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	max-width:1120px;
+	line-height: 0;
+	font-size:0;
 }
+#rad-slider ul{
+	margin: 0;
+	padding: 0;
+}
+
+#rad-slider li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+	background-image: none;
+	padding: 0;
+	margin: 0;
+}
+
+#rad-slider li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+#rad-slider img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: none;
+	padding: 0;
+}
+
 #rad-slider .slide-details{
 	position:absolute;
-	width:33%;
-	height:330px;
-	background-color:rgba(0,0,0,.35);
+	width:31%;
+	max-width: 313px;
+	height:100%;
+	background-color:rgba(107,203,202,.85);
 	top:0;
-	right:0;
+	right:left;
 	color:white;
+	font-size:16px;
+	line-height:18px;
+}
+#rad-slider li-text{
+	max-height:80%;
+	overflow:hidden;
 }
 #rad-slider .slide-details h2 {
 	margin:20px;
-	font-size:2em;
+	font-size:2.5em;
 	line-height:1.2em;	
+	font-weight: 200
 }
 #rad-slider .slide-details p {
 	margin:20px;
-	font-size:1.5em;
+	font-size:1.3em;
 	line-height:1em;	
 }
 
-#rad-slider #next-slide{
-	position:absolute;
-	width:2%;
-	height:330px;
-	top:0;
-	right:0;
-	z-index:9999;
+#rad-slider .next{
+	position:absolute;		
+	top:80%;
+	right:15px;
+	z-index:50;
 	text-indent:-99999em;
 	cursor:pointer;	
+	font-size:16px;
+	height:0;
+	width:20px;
+	border-top:solid 15px transparent;
+	border-bottom:solid 15px transparent;
+	border-left:solid 20px rgba(255,255,255,.5);
 }
-#rad-slider #previous-slide{
+#rad-slider .next:hover{
+	right:12px;
+}
+#rad-slider .prev{
 	position:absolute;
-	width:2%;
-	height:330px;
-	top:0;
-	right:left;
-	z-index:9999;
+	height:10%;
+	top:80%;
+	left:15px;
+	z-index:50;
 	text-indent:-99999em;
-	cursor:pointer;			
+	cursor:pointer;
+	font-size:16px;	
+	height:0;
+	width:20px;
+	border-top:solid 15px transparent;
+	border-bottom:solid 15px transparent;
+	border-right:solid 20px rgba(255,255,255,.5);		
 }
-#rad-slider #previous-slide:hover,
-#rad-slider #next-slide:hover{
-	background-color:black;	
+#rad-slider .prev:hover{
+	left:12px;
 }
