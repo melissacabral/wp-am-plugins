@@ -31,7 +31,7 @@ function slide_init() {
 			'menu_name' => 'Slides'
 		),
 		'public' => true,
-		'exclude_from_search' => true
+		'exclude_from_search' => true,
 		'show_in_menu' => true, 
 		'rewrite' => true,
 		'has_archive' => true, 
