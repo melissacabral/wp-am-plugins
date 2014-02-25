@@ -1,11 +1,8 @@
-jQuery(document).ready(function(){ 
-	jQuery.noConflict();
-	
-	jQuery('ul.slides').cycle({
-		fx:	'scrollHorz',
-		next: '#next-slide',
-		prev: '#previous-slide',
-		pause: 1
-		});
-
+jQuery.noConflict();
+jQuery(document).ready(function($){
+	$('.slides').responsiveSlides({
+		nav		: 	true,
+		speed	: 	500,
+		maxwidth: 	1120
+	});	
 });
